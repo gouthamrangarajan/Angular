@@ -1,4 +1,4 @@
->Simple datatable implementation using NgRx. Data comes form ngRX store, ability to search from navbar using action dispatch
+>Simple datatable implementation using NgRx. Data comes form ngRX store, ability to search from navbar & pagination using action dispatch
 
 # Datatable
 
