@@ -1,0 +1,19 @@
+.btn{
+    transition: all 0.3s;
+}
+
+.tbl__container{
+    max-height: 25rem;
+    overflow-y: auto;
+    overflow-x:hidden;
+}
+
+.tbl__container::-webkit-scrollbar{
+    width:0.4rem;
+}
+
+.tbl__container::-webkit-scrollbar-thumb {
+    background-color:#718096;
+    outline: 1px solid #718096;
+    border-radius:4px;
+  }

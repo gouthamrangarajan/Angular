@@ -1,3 +1,6 @@
 export interface data{
-    tblData:any[]
+    tblData:any[],
+    currPage:number,
+    totalPages:number,
+    ftTxt:''
 }

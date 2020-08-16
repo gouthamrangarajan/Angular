@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import {data} from '../models/data'
 import { map,count } from 'rxjs/operators';
 import {trigger,style,animate,transition,query,stagger} from '@angular/animations'
+import * as datatableActions  from '../store/actions/datatable.actions'
 
 export interface State{
   data:any
@@ -28,16 +29,24 @@ export interface State{
 })
 
 export class TableComponent implements OnInit {
-  data:Observable<any[]>    
-
-  constructor(private store: Store<State>) {
-    let storeData:Observable<data>;
-    storeData=this.store.select(state=>state.data);
-    this.data=storeData.pipe(map(el=>el.tblData));
-  
+  data:Observable<any[]>;  
+  currPage:Observable<number>;
+  totalPages:Observable<number>;
+  constructor(private store: Store<State>) {      
    }
 
   ngOnInit(): void {
+    this.store.dispatch(datatableActions.init());
+    let storeData:Observable<data>;
+    storeData=this.store.select(state=>state.data);
+    this.data=storeData.pipe(map(el=>el.tblData));
+    this.currPage=storeData.pipe(map(el=>el.currPage));
+    this.totalPages=storeData.pipe(map(el=>el.totalPages));
   }
-
+  nextPage():void{
+    this.store.dispatch(datatableActions.nextPage());
+  }
+  prevPage():void{
+    this.store.dispatch(datatableActions.prevPage());
+  }
 }

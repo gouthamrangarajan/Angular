@@ -1,10 +1,16 @@
 import { createAction, props } from '@ngrx/store';
 
-export const fetch = createAction(
-    '[Table] fetch',    
+export const init = createAction(
+    '[Table] init',    
+  );
+  export const nextPage = createAction(
+    '[Table] nextPage',    
+  );
+  export const prevPage = createAction(
+    '[Table] prevPage',    
   );
 
   export const filterRecords=createAction(
-    '[nav] filter',
+    '[Nav] filter',
     props<{txt:String}>()
   );

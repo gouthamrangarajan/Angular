@@ -1,5 +1,5 @@
 <div class="m-auto py-2 px-4">   
-    <div class="py-1 px-2">              
+    <div class="py-1 px-2 bg-white shadow rounded flex flex-col mt-12">      
         <table class="table-fixed w-full">
             <thead class="text-left">
                 <tr>
@@ -11,13 +11,35 @@
                     <th class="w-1/6 text-lg py-2 px-4">Salary</th>
                 </tr>
             </thead>
-            <tbody [@recordsAnimation]="(data | async)?.length">
-                <tr *ngFor="let row of data|async; let i = index; ">
-                    <td *ngFor="let col of row" [ngClass]="{'border border-teal-300 py-2 px-4':true,'bg-gray-100':i%2!=0}">
-                        {{col}}
+        </table>    
+        <div class="tbl__container">
+            <table class="table-fixed w-full">            
+                <tbody [@recordsAnimation]="data | async">
+                    <tr *ngFor="let row of data|async; let i = index; ">
+                        <td *ngFor="let col of row" [ngClass]="{'border border-teal-300 py-2 px-4':true,'bg-gray-100':i%2!=0}">
+                            {{col}}
+                        </td>
+                    </tr>
+                </tbody>           
+            </table>
+        </div>
+        <table class="table-fixed w-full" *ngIf="(currPage|async)>1 || (currPage|async)<(totalPages|async)">
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="py-2 px-4">
+                        <div class="flex w-full justify-end">
+                            <a class="btn py-2 px-4 hover:bg-gray-200 cursor-pointer rounded-full text-xl text-blue-600"
+                             *ngIf="(currPage|async)>1" (click)="prevPage()">
+                              <
+                            </a>
+                           <a class="btn py-2 px-4 hover:bg-gray-200 cursor-pointer rounded-full text-xl text-blue-600"
+                             *ngIf="(currPage|async)<(totalPages|async)" (click)="nextPage()">
+                               >
+                           </a>                       
+                         </div>
                     </td>
                 </tr>
-            </tbody>
+            </tfoot>
         </table>
     </div>
 </div>

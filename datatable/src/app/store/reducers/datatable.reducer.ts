@@ -3,6 +3,8 @@ import * as datatableActions from '../actions/datatable.actions';
 import {data} from '../../models/data'
 
 export const initialState={
+    currPage:1,
+    totalPages:1,
     tblData: [
         [
           "Tiger Nixon",
@@ -460,13 +462,15 @@ export const initialState={
           "2011/01/25",
           "$112,000"
         ]
-      ]
+      ],
+    ftTxt:''
 }
 
 const datatableReducer=createReducer(initialState,
-  on(datatableActions.fetch,state=>({...state})),
+  on(datatableActions.init,state=>({tblData:initialState.tblData.slice(0,10),currPage:1,totalPages:initialState.tblData.length/10,ftTxt:''})),
   on(datatableActions.filterRecords,(state,{txt})=>(
-      {tblData:initialState.tblData.filter(el=>{
+      {
+        tblData:initialState.tblData.filter(el=>{
         let success=false
         if(txt.toLowerCase()=='')
           success=true
@@ -475,9 +479,56 @@ const datatableReducer=createReducer(initialState,
               success=inel.toLowerCase().indexOf(txt.toLowerCase())>-1
         });
         return success;
-      })}
-    )
-  ));
+      }).slice(0,10),
+      currPage:1,
+      totalPages:(initialState.tblData.filter(el=>{
+        let success=false
+        if(txt.toLowerCase()=='')
+          success=true
+        el.forEach(inel=>{
+            if(!success)
+              success=inel.toLowerCase().indexOf(txt.toLowerCase())>-1
+        });
+        return success;
+      }).length)/10,
+      ftTxt:txt
+     }
+    )), 
+    on(datatableActions.nextPage,(state)=>(
+      {
+        ...state,
+        tblData:initialState.tblData.filter(el=>{
+        let success=false
+        if(state.ftTxt.toLowerCase()=='')
+          success=true
+        el.forEach(inel=>{
+            if(!success)
+              success=inel.toLowerCase().indexOf(state.ftTxt.toLowerCase())>-1
+        });
+        return success;
+      }).slice((state.currPage)*10,((state.currPage)*10)+10),
+      currPage:state.currPage+1,
+      totalPages:state.totalPages,      
+     }
+    )),
+    on(datatableActions.prevPage,(state)=>(
+      {
+        ...state,
+        tblData:initialState.tblData.filter(el=>{
+        let success=false
+        if(state.ftTxt.toLowerCase()=='')
+          success=true
+        el.forEach(inel=>{
+            if(!success)
+              success=inel.toLowerCase().indexOf(state.ftTxt.toLowerCase())>-1
+        });
+        return success;
+      }).slice((state.currPage-2)*10,((state.currPage-2)*10)+10),
+      currPage:state.currPage-1,
+      totalPages:state.totalPages,      
+     }
+    )),  
+  );
 
   export function reducer(state:data|undefined, action: Action) {
     return datatableReducer(state, action);
