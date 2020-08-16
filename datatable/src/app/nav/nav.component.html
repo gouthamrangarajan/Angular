@@ -1,0 +1,8 @@
+<nav class="flex justify-between items-center px-4 py-2 sticky top-0 z-10">
+    <span class="nav__logo text-2xl text-white">DataTable</span>
+    <div   [ngClass]="navRightClass">
+        <input type="text" class="px-3 py-2 rounded appearance-none outline-none flex-1" #input>
+        <a class="nav__icon text-white btn cursor-pointer rounded hover:bg-white hover:text-black p-1"
+             (click)="toggleNavRightClass()"><i class="material-icons">search</i></a>
+    </div>
+</nav>

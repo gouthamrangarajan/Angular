@@ -1,0 +1,23 @@
+<div class="m-auto py-2 px-4">   
+    <div class="py-1 px-2">              
+        <table class="table-fixed w-full">
+            <thead class="text-left">
+                <tr>
+                    <th class="w-1/6 text-lg py-2 px-4">Name</th>
+                    <th class="w-1/6 text-lg py-2 px-4">Designation</th>
+                    <th class="w-1/6 text-lg py-2 px-4">Location</th>
+                    <th class="w-1/6 text-lg py-2 px-4">Ext</th>
+                    <th class="w-1/6 text-lg py-2 px-4">Start Date</th>
+                    <th class="w-1/6 text-lg py-2 px-4">Salary</th>
+                </tr>
+            </thead>
+            <tbody [@recordsAnimation]="(data | async)?.length">
+                <tr *ngFor="let row of data|async; let i = index; ">
+                    <td *ngFor="let col of row" [ngClass]="{'border border-teal-300 py-2 px-4':true,'bg-gray-100':i%2!=0}">
+                        {{col}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
