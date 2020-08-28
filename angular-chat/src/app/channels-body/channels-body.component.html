@@ -1,0 +1,31 @@
+<div class="flex flex-col bg-white border-r border-gray-300 channels__body__container">
+   <ul [@recordsAnimation]="ChannelInfoCollection|async">
+       <li *ngFor="let info of ChannelInfoCollection|async" [routerLink]="'/'+info.id" routerLinkActive="active"
+            class="cursor-pointer p-2 hover:bg-gray-200 border-b border-gray-200 outline-none appearance-none">
+           <div class="router-link flex items-center space-x-8">
+                <a class="text-teal-600 rounded-full bg-gray-100 px-2 py-1"><i class="material-icons">personal_video</i></a>
+                <div class="flex-1 flex flex-col">
+                    <p class="text-lg">{{info.name}}</p>
+                    <p class="text-gray-500 text-sm">{{info.recentMsg}}</p>
+                </div>
+                <p class="text-gray-500 text-xs">
+                    <span  *ngIf="!isReceivedToday(info.recentMsgTime);then thenBlock; else elseBlock"></span>
+                    <ng-template #thenBlock>{{info.recentMsgTime|date:'MM/dd/yyyy'}}</ng-template>
+                    <ng-template #elseBlock>{{info.recentMsgTime|date:'hh:mm a'}}</ng-template>   
+                </p>                                                                             
+           </div>           
+       </li>
+       <li *ngIf="(ChannelInfoCollection|async)?.length==0 && srchTxt.trim()!=''" class="flex items-center justify-center w-full mt-2"
+            (click)="create()">
+            <a class="btn cursor-pointer px-3 py-1 shadow rounded-full bg-blue-700 hover:bg-blue-600 text-white">
+                <span class="text-xl text-red-300">+</span>
+                &nbsp;&nbsp;Create New
+            </a>
+       </li>
+   </ul>
+   <div [@notificationAnimation]="notification.display.toString()"
+     [ngClass]="{'notification bg-black absolute bottom-0 mb-10 px-3 py-1 rounded':true,'text-green-300':notification.type=='Success',
+            'text-red-300':notification.type=='Error'}">
+        {{notification.msg}}
+   </div>
+</div>

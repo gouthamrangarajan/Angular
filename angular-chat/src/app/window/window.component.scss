@@ -1,0 +1,13 @@
+.messages__container{
+    height: 74vh;
+    overflow-y:auto;
+}
+
+.messages__container::-webkit-scrollbar{
+    width:0.3rem;
+}
+
+.messages__container::-webkit-scrollbar-thumb{
+    background-color:#a0aec0;
+    outline: 1px solid #a0aec0;
+}

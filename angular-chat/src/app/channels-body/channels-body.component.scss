@@ -1,0 +1,25 @@
+li,.btn{
+    transition:all 0.3s;
+}
+
+.channels__body__container{
+    height: 75vh;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+
+.channels__body__container::-webkit-scrollbar{
+    width:0.3rem;
+}
+
+.channels__body__container::-webkit-scrollbar-thumb{
+    background-color:#a0aec0;
+    outline: 1px solid #a0aec0;
+}
+li{
+    transition:all 0.3s;
+}
+li.active{
+    background-color:#edf2f7;  
+}
+
